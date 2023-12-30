@@ -18,7 +18,8 @@
 
 function flatten(arr){
     if(arr.length === arr.flat().length) return arr;
-    return () => flatten(arr.flat());
+    arr = arr.flat();
+    return () => flatten(arr);
 }
 
 function trampoline(fn,...arr){
@@ -29,4 +30,4 @@ function trampoline(fn,...arr){
     return result;
 }
 
-console.log(trampoline(flatten(),[21,3,[21,9,[2]]]));
+console.log(trampoline(flatten([21,3,[21,9,[2,4,7,9,[2,9,0]],[2,3]],21,3,[21,9,[2,4,7,9,[2,9,0]],[2,3]],21,3,[21,9,[2,4,7,9,[2,9,0]],[2,3,21,3,[21,9,[2,4,7,9,[2,9,0]],[2,3]]]]])));
