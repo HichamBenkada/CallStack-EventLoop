@@ -34,26 +34,36 @@
 
 //part3: Deferred Execution
 
-const hOne = document.createElement("h1");
-function isPrime(n, i = 2){
-    if (n == i){
-        return true;
-    }
-    else if(n % i ==0) {
-        return false;
-    }
-    return isPrime(n, i++)
+// result holder element
+document.body.appendChild(document.createElement("h1")).setAttribute("id","hOne")
+const hOne = document.getElementById("hOne")
+
+function isPrime(n,i=2){
+    if (n === i) return true;
+    if (n % i === 0) return false;
+    return isPrime(n, ++i);
 }
-document.body.appendChild(hOne)
-function addPrimeList(n){
-    hOne.textContent = `list of primes between 1 and ${n}:`
-    while(n>1){
-        if(isPrime(n)){ 
-        hOne.textContent +=`${n} ,`
-        }
-        n--;
+
+//add prime numbers to the list
+let prime =2;
+function addPrimeList(num){
+    while(prime <= num){
+        if(isPrime(prime)) hOne.textContent += `${prime} `;
+        prime++;
     }
-    
-    
-    setTimeout(()=>{alert('Calculation is finished')},0)
+
+   return setTimeout(() =>{alert("Calculation is finished")},0);
 }
+
+//requesting a number from the user or 'one' 
+let userInput= prompt("I can find all primes bellow a number, Enter a number") || 1;
+
+if(!isNaN(Number(userInput)) && userInput > 1){
+    hOne.textContent = `you have entered '${userInput}', and the list of all primes between 1 and ${userInput} ${(userInput==2)? 'is':'are'}: `;
+        addPrimeList(userInput);
+}
+else{
+    hOne.textContent = `you have entered '${userInput}', Bruh! Are serious ☹!?`;}
+    let aEl = document.createElement("a")
+    aEl.setAttribute("href","./index.html")
+    document.body.appendChild(aEl).textContent="Try again!";
